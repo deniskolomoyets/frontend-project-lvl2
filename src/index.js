@@ -1,33 +1,38 @@
-import _ from 'lodash';
-import { readFileSync } from 'fs';
 import path from 'path';
+import { readFileSync} from 'fs';
+import _ from 'lodash';
+
 
 const fileParse = (file) => JSON.parse(readFileSync(path.resolve(file), 'utf8'));
 
-const operators = ['+', '-'];
+export const genDiff = (filepath1, filepath2) => {
+  const json1 = fileParse(filepath1);
+  const json2 = fileParse(filepath2);
 
-export const genDiff = (file1, file2) => {
-  const fileJson1 = fileParse(file1);
-  const fileJson2 = fileParse(file2);
-  const result = {};
+  const keysToCompare = Object.keys({ ...json1, ...json2 }).sort();
 
-  const keys1 = Object.keys(fileJson1);
-  const keys2 = Object.keys(fileJson2);
-  const keysAll = _.union(keys1, keys2);
-  keysAll.sort();
+  let result = '{\n';
+  
+  keysToCompare.forEach((key) => {
+    const key1 = json1[key];
+    const key2 = json2[key];
 
-  for (const key of keysAll) {
-    if (_.has(fileJson1, key) && _.has(fileJson2, key) && (fileJson1[key] === fileJson2[key])) {
-      result[`  ${key}`] = fileJson1[key];
-    } else if (_.has(fileJson1, key) && _.has(fileJson2, key) && (fileJson1[key] !== fileJson2[key])) {
-      result[`${operators[1]} ${key}`] = fileJson1[key];
-      result[`${operators[0]} ${key}`] = fileJson2[key];
-    } else if (!_.has(fileJson1, key) || _.has(fileJson2, key)) {
-      result[`${operators[1]} ${key}`] = fileJson2[key];
-    } else if (_.has(fileJson1, key) || !_.has(fileJson2, key)) {
-      result[`${operators[1]} ${key}`] = fileJson1[key];
+    if (key1 === key2) {
+      result += `    ${key}: ${key1}\n`;
+      return;
     }
-  }
-  return JSON.stringify(result, null, 2);
+
+    if (_.has(json1, key)) {
+      result += `  - ${key}: ${key1}\n`;
+    }
+
+    if (_.has(json2, key)) {
+      result += `  + ${key}: ${key2}\n`;
+    }
+  });
+
+  result += '}';
+
+  return result;
 };
 
