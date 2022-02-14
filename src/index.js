@@ -1,18 +1,17 @@
 import path from 'path';
-import { readFileSync} from 'fs';
+import { readFileSync } from 'fs';
 import _ from 'lodash';
-
 
 const fileParse = (file) => JSON.parse(readFileSync(path.resolve(file), 'utf8'));
 
-export const genDiff = (filepath1, filepath2) => {
+const genDiff = (filepath1, filepath2) => {
   const json1 = fileParse(filepath1);
   const json2 = fileParse(filepath2);
 
   const keysToCompare = Object.keys({ ...json1, ...json2 }).sort();
 
   let result = '{\n';
-  
+
   keysToCompare.forEach((key) => {
     const key1 = json1[key];
     const key2 = json2[key];
@@ -36,3 +35,4 @@ export const genDiff = (filepath1, filepath2) => {
   return result;
 };
 
+export default genDiff;
