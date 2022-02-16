@@ -4,9 +4,9 @@ import _ from 'lodash';
 
 const fileParse = (file) => JSON.parse(readFileSync(path.resolve(file), 'utf8'));
 
-const genDiff = (filepath1, filepath2) => {
-  const json1 = fileParse(filepath1);
-  const json2 = fileParse(filepath2);
+const genDiff = (file1, file2) => {
+  const json1 = fileParse(file1);
+  const json2 = fileParse(file2);
 
   const keysToCompare = Object.keys({ ...json1, ...json2 }).sort();
 

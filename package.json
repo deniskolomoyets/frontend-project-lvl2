@@ -8,7 +8,7 @@
   },
   "type": "module",
   "scripts": {
-    "test": "jest"
+    "test": "npx -n --experimental-vm-modules jest"
   },
   "repository": {
     "type": "git",
@@ -20,12 +20,17 @@
     "url": "https://github.com/deniskolomoyets/frontend-project-lvl2/issues"
   },
   "homepage": "https://github.com/deniskolomoyets/frontend-project-lvl2#readme",
+  "jest": {
+    "testEnvironment": "node",
+    "transform": {}
+  },
   "dependencies": {
     "commander": "^9.0.0",
-    "js-yaml": "^4.1.0",
     "lodash": "^4.17.21"
   },
   "devDependencies": {
+    "js-yaml": "^4.1.0",
+    "@jest/globals": "^27.5.1",
     "eslint": "^8.9.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.25.4",
