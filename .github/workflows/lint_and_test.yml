@@ -14,5 +14,5 @@ jobs:
           node-version: 14
       - name: Run ESLint
         run: |
-          make install
+          npm ci
           make lint
