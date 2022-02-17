@@ -16,6 +16,7 @@ jobs:
           node-version: 14
       - name: Run ESLint
         run: |
+          npm ci
           make lint
       - name: Test & publish code coverage
         # Publish code coverage on Code Climate
