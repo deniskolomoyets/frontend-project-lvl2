@@ -1,4 +1,4 @@
-name: linter
+name: Node CI
 
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
@@ -25,5 +25,14 @@ jobs:
       # Runs a single command using the runners shell
       - name: Run ESLint
         run: |
-          make install
           make lint
+      - name: Test & publish code coverage
+        # Publish code coverage on Code Climate
+        # https://github.com/paambaati/codeclimate-action
+        uses: paambaati/codeclimate-action@v2.7.4
+        # Add Code Climate secret key
+        env:
+          CC_TEST_REPORTER_ID: ${{ secrets.CODE_CLIMATE }}
+        with:
+          coverageCommand: make test-coverage
+          debug: true 
