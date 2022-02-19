@@ -18,7 +18,7 @@ test('Difference of two flat json-file', () => {
   expect(result).toBe(expectedResult);
 });
 
-test('Difference of two flat json-file', () => {
+test('Difference of two flat yml-file', () => {
   const expectedResult = readFixture('expected_result');
   const result = genDiff('__fixtures__/file1.yml', '__fixtures__/file2.yml');
   expect(result).toBe(expectedResult);
