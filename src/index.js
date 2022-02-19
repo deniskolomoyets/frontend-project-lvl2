@@ -1,31 +1,34 @@
 import path from 'path';
 import { readFileSync } from 'fs';
 import _ from 'lodash';
+import parse from './parsers.js';
 
-const fileParse = (file) => JSON.parse(readFileSync(path.resolve(file), 'utf8'));
+const readFile = (file) => readFileSync(path.resolve(file), 'utf8');
 
 const genDiff = (file1, file2) => {
-  const json1 = fileParse(file1);
-  const json2 = fileParse(file2);
+  const extension1 = path.extname(file1);
+  const extension2 = path.extname(file2);
 
-  const keysToCompare = Object.keys({ ...json1, ...json2 }).sort();
+  const parsedFile1 = parse(readFile(file1), extension1);
+  const parsedFile2 = parse(readFile(file2), extension2);
+  const keysToCompare = Object.keys({ ...parsedFile1, ...parsedFile2 }).sort();
 
   let result = '{\n';
 
   keysToCompare.forEach((key) => {
-    const key1 = json1[key];
-    const key2 = json2[key];
+    const key1 = parsedFile1[key];
+    const key2 = parsedFile2[key];
 
     if (key1 === key2) {
       result += `    ${key}: ${key1}\n`;
       return;
     }
 
-    if (_.has(json1, key)) {
+    if (_.has(parsedFile1, key)) {
       result += `  - ${key}: ${key1}\n`;
     }
 
-    if (_.has(json2, key)) {
+    if (_.has(parsedFile2, key)) {
       result += `  + ${key}: ${key2}\n`;
     }
   });
