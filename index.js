@@ -2,8 +2,8 @@ import _ from 'lodash';
 import path from 'path';
 import fs from 'fs';
 
-const filepath1 = '__fixtures__/file1.json';
-const filepath2 = '__fixtures__/file2.json';
+// const filepath1 = '__fixtures__/file1.json';
+// const filepath2 = '__fixtures__/file2.json';
 
 // const func = (path1, path2) => {
 //   const data1 = fs.readFileSync(path1, 'utf8');
@@ -13,11 +13,10 @@ const filepath2 = '__fixtures__/file2.json';
 //   const obj2 = JSON.parse(data2);
 const readFile = (file) => fs.readFileSync(path.resolve(file), 'utf8');
 
-
-export const puk = (filepath1, filepath2) => {
+const genDiff = (filepath1, filepath2) => {
   const obj1 = JSON.parse(readFile(filepath1));
   const obj2 = JSON.parse(readFile(filepath2));
-  
+
   const keys = _.union(_.keys(obj1), _.keys(obj2)).sort();
   // const keys = Object.keys({ ...obj1, ...obj2}).sort();
 
@@ -45,5 +44,5 @@ export const puk = (filepath1, filepath2) => {
 
   return `{\n${result}}`;
 };
-
-console.log(puk(filepath1,filepath2));
+export default genDiff;
+console.log(genDiff('__fixtures__/file1.json', '__fixtures__/file2.json'));

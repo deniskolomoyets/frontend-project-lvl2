@@ -7,7 +7,7 @@ program
   .option('-f, --format [type] ', 'Output format')
   .arguments('<filepath1> <filepath2>')
   .action((filepath1, filepath2) => {
-    console.log(puk(filepath1, filepath2));
+    console.log(genDiff(filepath1, filepath2));
   });
 // .parse(process.agrv);
 program.parse();
