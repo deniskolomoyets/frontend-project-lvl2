@@ -20,10 +20,10 @@ const genDiff = (filepath1, filepath2) => {
   const keys = _.union(_.keys(obj1), _.keys(obj2)).sort();
   // const keys = Object.keys({ ...obj1, ...obj2}).sort();
 
-  const isNewKey = (key, obj1, obj2) => !_.has(obj1, key) && _.has(obj2, key);
-  const isDeletedKey = (key, obj1, obj2) => _.has(obj1, key) && !_.has(obj2, key);
-  const isKey = (key, obj1, obj2) => _.has(obj1, key) && _.has(obj2, key);
-  const isMatch = (key, obj1, obj2) => obj1[key] === obj2[key];
+  const isNewKey = (key) => !_.has(obj1, key) && _.has(obj2, key);
+  const isDeletedKey = (key) => _.has(obj1, key) && !_.has(obj2, key);
+  const isKey = (key) => _.has(obj1, key) && _.has(obj2, key);
+  const isMatch = (key) => obj1[key] === obj2[key];
 
   const result = keys.reduce((acc, key) => {
     let res = '';

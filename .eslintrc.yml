@@ -1,7 +1,19 @@
 env:
   browser: true
   es2021: true
+  jest/globals: true
+extends:
+  - 'airbnb-base'
+  - 'plugin:jest/recommended'
+plugins:
+  - jest
 parserOptions:
-  ecmaVersion: latest
+  ecmaVersion: 2020
   sourceType: module
-rules: {}
+rules: {
+  no-console: 0,
+  import/extensions: 0,
+  no-await-in-loop: 0,
+  no-underscore-dangle: [2, { "allow": ["__filename", "__dirname"] }]
+}
+
