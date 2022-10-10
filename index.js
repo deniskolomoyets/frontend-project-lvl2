@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import path from 'path';
 import fs from 'fs';
+import parse from './parsers.js';
 
 // const filepath1 = '__fixtures__/file1.json';
 // const filepath2 = '__fixtures__/file2.json';
@@ -14,8 +15,10 @@ import fs from 'fs';
 const readFile = (file) => fs.readFileSync(path.resolve(file), 'utf8');
 
 const genDiff = (filepath1, filepath2) => {
-  const obj1 = JSON.parse(readFile(filepath1));
-  const obj2 = JSON.parse(readFile(filepath2));
+  const extension1 = path.extname(filepath1);
+  const extension2 = path.extname(filepath2);
+  const obj1 = parse(readFile(filepath1), extension1);
+  const obj2 = parse(readFile(filepath2), extension2);
 
   const keys = _.union(_.keys(obj1), _.keys(obj2)).sort();
   // const keys = Object.keys({ ...obj1, ...obj2}).sort();
@@ -45,4 +48,4 @@ const genDiff = (filepath1, filepath2) => {
   return `{\n${result}}`;
 };
 export default genDiff;
-console.log(genDiff('__fixtures__/file1.json', '__fixtures__/file2.json'));
+console.log(genDiff('__fixtures__/file1.yml', '__fixtures__/file2.yml'));
