@@ -2,9 +2,9 @@
   "name": "frontend-project-lvl2",
   "version": "1.0.0",
   "description": "[![Actions Status](https://github.com/deniskolomoyets/frontend-project-lvl2/workflows/hexlet-check/badge.svg)](https://github.com/deniskolomoyets/frontend-project-lvl2/actions)",
-  "main": "index.js",
+  "main": "src/gendiff.js",
   "bin": {
-    "frontend-project-lvl2": "bin/gendiff.js"
+    "gendiff": "bin/gendiff.js"
   },
   "type": "module",
   "jest": {

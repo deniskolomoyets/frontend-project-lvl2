@@ -14,7 +14,7 @@ import parse from './parsers.js';
 //   const obj2 = JSON.parse(data2);
 const readFile = (file) => fs.readFileSync(path.resolve(file), 'utf8');
 
-const genDiff = (filepath1, filepath2) => {
+export default (filepath1, filepath2) => {
   const extension1 = path.extname(filepath1);
   const extension2 = path.extname(filepath2);
   const obj1 = parse(readFile(filepath1), extension1);
@@ -47,5 +47,4 @@ const genDiff = (filepath1, filepath2) => {
 
   return `{\n${result}}`;
 };
-export default genDiff;
-console.log(genDiff('__fixtures__/file1.yml', '__fixtures__/file2.yml'));
+// console.log(genDiff('../__fixtures__/file1.yml', '../__fixtures__/file2.yml'));
