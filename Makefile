@@ -9,3 +9,6 @@ test:
 
 test-coverage:
 	npm test -- --coverage
+
+game:
+	node bin/gendiff.js
